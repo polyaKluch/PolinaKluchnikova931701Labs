@@ -22,12 +22,6 @@ namespace BackendLab.Controllers
         public IActionResult PassUsingViewData()
         {
             CalcClass calc = new CalcClass();
-            /*ViewData["First"] = calc.First;
-            ViewData["Second"] = calc.Second;
-            ViewData["Add"] = calc.Add;
-            ViewData["Sub"] = calc.Sub;
-            ViewData["Mult"] = calc.Mult;
-            ViewData["Div"] = calc.Div;*/
             ViewData["CalcClass"] = calc;
             return View();
         }
