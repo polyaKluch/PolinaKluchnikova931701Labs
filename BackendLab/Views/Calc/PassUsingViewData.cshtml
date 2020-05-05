@@ -3,15 +3,19 @@
 }
 
     <div class="text-left">
-        <h1 class="display-4">PassUsingViewData</h1>
-        <p>Rand Value First : @ViewData["First"]</p>
-        <h1>Rand Value Second :@ViewData["Second"]</h1>
+        @{
+            var calc = ViewData["CalcClass"]
+                as BackendLab.Models.CalcClass;
+        }
+        <h1 class="display-4">PassUsingModel</h1>
+        <h1>Rand Value First : @calc.First</h1>
+        <h1>Rand Value Second :@calc.Second </h1>
         <h1>Add :</h1>
-        <p>@ViewData["First"] + @ViewData["Second"] = @ViewData["Add"] </p>
+        <p>@calc.First + @calc.Second = @calc.Add </p>
         <h1>Sub :</h1>
-        <p>@ViewData["First"] - @ViewData["Second"] = @ViewData["Sub"]</p>
+        <p>@calc.First - @calc.Second = @calc.Sub</p>
         <h1>Mult :</h1>
-        <p>@ViewData["First"] * @ViewData["Second"] = @ViewData["Mult"]</p>
+        <p>@calc.First * @calc.Second = @calc.Mult</p>
         <h1>Div :</h1>
-        <p>@ViewData["First"] / @ViewData["Second"] = @ViewData["Div"]</p>
+        <p>@calc.First / @calc.Second = @calc.Div</p>
     </div>
