@@ -4,10 +4,11 @@
 
 <div class="text-left">
     <h1 class="display-4">Calc Service Demonstration</h1>
+
 </div>
 <ul>
-    <li><a asp-area="" asp-controller="Calc" asp-action="PassUsingModel">Using Model Calc</a></li>
-    <li><a asp-area="" asp-controller="Calc" asp-action="PassUsingViewData">Using ViewData</a></li>
-    <li><a asp-area="" asp-controller="Calc" asp-action="PassUsingViewBag">Using ViewBag</a></li>
-    <li><a asp-area="" asp-controller="Calc" asp-action="AccessServiceDirectly">Using Service Injection Calc</a></li>
+    <li><a asp-area="" asp-controller="Calc" asp-action="Manual">Manual parsing in single action</a></li>
+    <li><a asp-area="" asp-controller="Calc" asp-action="ManualWithSeparateHandlers">Manual parsing in separate action</a></li>
+    <li><a asp-area="" asp-controller="Calc" asp-action="ModelBindingsInParametrs">Model bindings(parametrs)</a></li>
+    <li><a asp-area="" asp-controller="Calc" asp-action="ModelBindingsInSeparateModel">Model bindings(separate model)</a></li>
 </ul>

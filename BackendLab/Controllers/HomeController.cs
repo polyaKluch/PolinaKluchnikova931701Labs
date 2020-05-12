@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BackendLab.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BackendLab.Controllers
 {
@@ -23,6 +24,7 @@ namespace BackendLab.Controllers
             return View();
         }
 
+ 
         public IActionResult Privacy()
         {
             return View();
