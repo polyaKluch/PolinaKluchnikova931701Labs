@@ -20,7 +20,6 @@ namespace BackendLab.Controllers
                 TotalAndCorrectAns tawa = TotalAndCorrectAns.Instance;
                 tawa.Total+= 1;
                 opernumb.Solution(); 
-                ViewData["NotANumber"] = "" + opernumb.First +  "  ||  " + opernumb.Second;
                 if (opernumb.RightOrWrong())
                     tawa.Correct += 1;
                 (tawa.Answers).Add(opernumb);
@@ -31,8 +30,6 @@ namespace BackendLab.Controllers
                 return View(new OperAndNumb());
             return RedirectToAction("QuizResult");
         }
-
-      
 
         public IActionResult QuizResult()
         {
