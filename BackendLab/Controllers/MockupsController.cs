@@ -14,21 +14,21 @@ namespace BackendLab.Controllers
         [HttpPost]
         public IActionResult Quiz(OperAndNumb opernumb, string action)
         {
-            double number;
-            if (double.TryParse(opernumb.YourAnswer, out number) & ModelState.IsValid)
-            {
-                TotalAndCorrectAns tawa = TotalAndCorrectAns.Instance;
-                tawa.Total+= 1;
-                opernumb.Solution(); 
-                if (opernumb.RightOrWrong())
-                    tawa.Correct += 1;
-                (tawa.Answers).Add(opernumb);
-            }
-            else
-                ViewData["NotANumber"] = "Not a number!";
             if (action == "Next")
-                return View(new OperAndNumb());
-            return RedirectToAction("QuizResult");
+                if (ModelState.IsValid)
+                {
+                    TotalAndCorrectAns tawa = TotalAndCorrectAns.Instance;
+                    tawa.Total += 1;
+                    opernumb.Solution();
+                    if (opernumb.RightOrWrong())
+                        tawa.Correct += 1;
+                    (tawa.Answers).Add(opernumb);
+                    return View(new OperAndNumb());
+                }
+                else
+                    return View(opernumb);
+            else
+                return RedirectToAction("QuizResult");
         }
 
         public IActionResult QuizResult()

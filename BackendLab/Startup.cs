@@ -18,6 +18,13 @@ namespace BackendLab
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddRazorPages()
+                        .AddMvcOptions(options =>
+                        {
+                            options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
+                                _ => "Поле не может быть пустым!");
+                        });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

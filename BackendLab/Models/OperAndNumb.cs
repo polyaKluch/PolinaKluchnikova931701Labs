@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -6,52 +7,51 @@ namespace BackendLab.Models
 {
     public class OperAndNumb
     {
-        [Required]
-        [StringLength(5, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
-        public string First { get; set; }
-        [Required]
-        [StringLength(5, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 1)]
-        public string Second { get; set; }
+        public double First { get; set; }
+        public double Second { get; set; }
         public string Operand { get; set; }
-        public string CorrectAnswer { get; private set; }
-        public string YourAnswer { get; set; }
+        public double CorrectAnswer { get; private set; }
+        
+       
+        [Range(-100, 100)]
+        [Required]
+        public double YourAnswer { get; set; }
 
         public OperAndNumb()
         {
             Random random = new Random();
-            double First = random.Next(11);
-            double Second = random.Next(11);
+            this.First = random.Next(11);
+            this.Second = random.Next(11);
             string[] Operands = { "+", "-", "*", "/" };
             this.Operand = Operands[random.Next(4)];
-            this.First = "" + First;
-            this.Second = "" + Second;
+            
         }
         public void Solution()
         {
-            StringToOper(Operand, Convert.ToDouble(this.First), Convert.ToDouble(this.Second));
-        }
 
+            StringToOper(Operand, First, Second);
+        }
         private void  StringToOper(string oper, double First, double Second)
         {
             switch (oper)
             {
                 case "+":
-                    CorrectAnswer = "" + (First + Second);
+                    CorrectAnswer =First + Second;
                     break;
                 case "-":
-                    CorrectAnswer = "" + (First - Second);
+                    CorrectAnswer = First - Second;
                     break;
                 case "*":
-                    CorrectAnswer = "" + (First * Second);
+                    CorrectAnswer = First * Second;
                     break;
                 case "/":
-                    CorrectAnswer = "" + (First / Second);
+                    CorrectAnswer = First / Second;
                     break;
             }
         }
         public bool RightOrWrong()
         {
-            double AnswerDouble = Math.Abs(Convert.ToDouble(YourAnswer) - Convert.ToDouble(CorrectAnswer));
+            double AnswerDouble = Math.Abs(YourAnswer - CorrectAnswer);
             if (Operand == "/" & AnswerDouble < 0.1)
             {
                 return true;
