@@ -1,42 +1,86 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using BackendLab.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 namespace BackendLab.Controllers
 {
     public class MockupsController : Controller
     {
-        [HttpGet]
-        public IActionResult Quiz()
+        public IActionResult Mockups()
         {
-            OperAndNumb opernumb = new OperAndNumb();
-            return View(opernumb);
-        }
-
-        [HttpPost]
-        public IActionResult Quiz(OperAndNumb opernumb, string action)
-        {
-            if (action == "Next")
-                if (ModelState.IsValid)
-                {
-                    TotalAndCorrectAns tawa = TotalAndCorrectAns.Instance;
-                    tawa.Total += 1;
-                    opernumb.Solution();
-                    if (opernumb.RightOrWrong())
-                        tawa.Correct += 1;
-                    (tawa.Answers).Add(opernumb);
-                    return View(new OperAndNumb());
-                }
-                else
-                    return View(opernumb);
-            else
-                return RedirectToAction("QuizResult");
-        }
-
-        public IActionResult QuizResult()
-        {
-            ViewBag.Result = TotalAndCorrectAns.Instance.Answers;
-            ViewData["Correct"] = "" + TotalAndCorrectAns.Instance.Correct;
-            ViewData["Total"] = "" + TotalAndCorrectAns.Instance.Total;
             return View();
+        }
+        public IActionResult Reset(Acc acc)
+        {
+            if (ModelState["Email"].ValidationState==(ModelValidationState)2)
+                return Redirect("ResetCon");
+            return View(acc);
+        }
+        public IActionResult ResetCon(string value)
+        {
+            Acc acc = new Acc();
+            if (Request.Method == "GET")
+                return View();
+            if ((acc.Code).ToString() == value)
+                ViewData["error"] = "Password reset";
+            else
+            ViewData["error"] = "Wrong code";
+            return View();
+        }
+        [HttpGet]
+        public IActionResult Signup()
+        {
+            dateset();
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Signup(Acc acc)
+        {
+            Acc a = new Acc();
+            dateset();
+            if (ModelState["FirstName"].ValidationState == (ModelValidationState)2 &
+                ModelState["LastName"].ValidationState == (ModelValidationState)2 &
+                ModelState["Gender"].ValidationState == (ModelValidationState)2)
+                return RedirectToAction("Signup2", acc);
+            return View();
+        }
+        public IActionResult Signup2(Acc acc)
+        {
+            if (Request.Method == "GET")
+                return View();
+            if (ModelState["Email"].ValidationState == (ModelValidationState)2 &
+                ModelState["Password"].ValidationState == (ModelValidationState)2)
+                if (acc.Password == acc.ComparePassword)
+                    return View("Result", acc);
+                else
+                    ModelState["Password"].Errors.Add("Passwords don't match"); 
+            return View();
+        }
+        public IActionResult Result(Acc acc)
+        {
+            return View(acc);
+        }
+        public void dateset()
+        {
+            string[] month = { "January", "February", "March", "April",
+                "May", "June", "July", "August", "Septemer", "October", "November", "December"};
+            ViewBag.MonthsSelect = new SelectList(month);
+
+            int[] day = new int[31];
+            for (int i = 0; i < 31; i++)
+                day[i] = i + 1;
+            ViewBag.DaysSelect = new SelectList(day);
+
+            int[] year = new int[120];
+            for (int i = 0; i < 120; i++)
+                year[i] = 2020 - i;
+            ViewBag.YearsSelect = new SelectList(year);
+        }
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
