@@ -14,7 +14,7 @@ namespace BackendLab.Controllers
         }
         public IActionResult Reset(Acc acc)
         {
-            if (ModelState["Email"].ValidationState==(ModelValidationState)2)
+            if (ModelState["Email"].ValidationState==ModelValidationState.Valid)
                 return Redirect("ResetCon");
             return View(acc);
         }
@@ -40,9 +40,9 @@ namespace BackendLab.Controllers
         {
             Acc a = new Acc();
             dateset();
-            if (ModelState["FirstName"].ValidationState == (ModelValidationState)2 &
-                ModelState["LastName"].ValidationState == (ModelValidationState)2 &
-                ModelState["Gender"].ValidationState == (ModelValidationState)2)
+            if (ModelState["FirstName"].ValidationState == ModelValidationState.Valid &
+                ModelState["LastName"].ValidationState == ModelValidationState.Valid &
+                ModelState["Gender"].ValidationState == ModelValidationState.Valid)
                 return RedirectToAction("Signup2", acc);
             return View();
         }
@@ -50,8 +50,8 @@ namespace BackendLab.Controllers
         {
             if (Request.Method == "GET")
                 return View();
-            if (ModelState["Email"].ValidationState == (ModelValidationState)2 &
-                ModelState["Password"].ValidationState == (ModelValidationState)2)
+            if (ModelState["Email"].ValidationState == ModelValidationState.Valid &
+                ModelState["Password"].ValidationState == ModelValidationState.Valid)
                 if (acc.Password == acc.ComparePassword)
                     return View("Result", acc);
                 else

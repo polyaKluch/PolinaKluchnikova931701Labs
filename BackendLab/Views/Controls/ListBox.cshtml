@@ -1,9 +1,9 @@
 ﻿<div class="text-left">
-    <h1 class="display-4">Drop Down List</h1>
+    <h1 class="display-4">List Box</h1>
 </div>
-<form method="post">
+<form method="post" multiple ="none" >
     <b>Month</b><br />
     @Html.ListBox("Value", new SelectList(new string[] { "January", "February", "March", "April",
-                "May", "June", "July", "August", "Septemer", "October", "November", "December"}), "Months"))<br>
+                "May", "June", "July", "August", "Septemer", "October", "November", "December"}), "Months")<br>
     <input type="submit" value="Submit">
 </form>

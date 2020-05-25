@@ -55,7 +55,7 @@ namespace BackendLab.Controllers
         {
             if (Request.Method == "GET")
                 return View();
-            ViewData["Type"] = "Radio";
+            ViewData["Type"] = "ListBox";
             ViewData["Value1"] = "Month";
             ViewData["Value2"] = Value;
             return View("Result");
@@ -65,7 +65,7 @@ namespace BackendLab.Controllers
         {
             if (Request.Method == "GET")
                 return View();
-            ViewData["Type"] = "Radio";
+            ViewData["Type"] = "Drop Down List";
             ViewData["Value1"] = "Month";
             ViewData["Value2"] = Value;
             return View("Result");
