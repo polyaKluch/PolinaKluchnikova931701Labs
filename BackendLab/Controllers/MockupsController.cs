@@ -12,10 +12,18 @@ namespace BackendLab.Controllers
         {
             return View();
         }
-        public IActionResult Reset(Acc acc)
+        public IActionResult Reset(Acc acc, string send)
         {
-            if (ModelState["Email"].ValidationState==ModelValidationState.Valid)
-                return Redirect("ResetCon");
+            
+            if (ModelState["Email"].ValidationState == ModelValidationState.Valid)
+            {
+                if (send == "Send me a code")
+                {
+                    ViewData["Code"] = "Your code: " + acc.Code;
+                    return View(acc);
+                }
+                    return Redirect("ResetCon");
+            }
             return View(acc);
         }
         public IActionResult ResetCon(string value)

@@ -5,5 +5,7 @@
 <form method="post">
     @Html.EditorFor(p => p.Email)<br>
     <input type="submit" name="send" value="Send me a code" />
-    <input type="submit" name="have" value="I have a code" />
+    <input type="submit" name="send" value="I have a code" />
 </form>
+@ViewData["Code"]
+
